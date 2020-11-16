@@ -5,7 +5,7 @@
     <title>Document</title>
     <!-- production version, optimized for size and speed -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
-    
+
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <style>
@@ -81,8 +81,8 @@
         <button v-on:click="view.vcenter = !view.vcenter">{{view.vcenter ? 'Bottom Align' : 'V Center'}}</button>
 
         <div class="monitors" v-bind:class="{stacked: view.stacked, hcenter: view.hcenter, vcenter: view.vcenter}">
-            <div class="monitor" v-for="(d, index) in displaysSorted" v-if="d.visible" v-bind:style="{ border: '3px solid ' + colors[index % 6], color: colors[index % 6], 'background-color': colors[index % 6] + '30', width: d.width * 30 + 'px', height: d.height*30 + 'px'}">
-                <span class="name">{{d}}</span>
+            <div class="monitor" v-for="(d, index) in displaysSorted" v-if="d.visible" v-bind:style="{ border: '3px solid ' + colors[index % 6], color: colors[index % 6], 'background-color': colors[index % 6] + '10', width: d.width * 30 + 'px', height: d.height*30 + 'px'}">
+                <span class="name">{{d.model}} {{d}}</span>
             </div>
         </div>
 
@@ -94,6 +94,7 @@
                 <th>Ratio</th>
                 <th>Resolution</th>
                 <th>PPI</th>
+                <th>Link</th>
             </tr>
             <tr v-for="(d, index) in displaysSorted" v-bind:style="{color: colors[index % 6]}">
                 <td><input type="checkbox" v-model="d.visible"></td>
@@ -102,6 +103,7 @@
                 <td>{{d.ratio}}</td>
                 <td>{{d.res}}</td>
                 <td>{{d.ppi}}</td>
+                <td><a v-if="d.link" :href="d.link" target="_blank">link</a></td>
             </tr>
         </table>
     </div>

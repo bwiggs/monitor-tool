@@ -11,7 +11,7 @@ class Ratio {
 }
 
 class Display {
-    constructor(model, inches, ratio, res) {
+    constructor(model, inches, ratio, res, link) {
 
         this.inches = inches;
         let [pxw, pxh] = res.split('x');
@@ -21,6 +21,7 @@ class Display {
         this.ppi = Display.calcPPI(inches, pxw, pxh);
         this.ratio = ratio;
         this.visible = true;
+        this.link = link;
 
         [this.width, this.height] = Display.calcDimensions(inches, ratio);
         this.model = model;
@@ -46,14 +47,16 @@ const ASPECT_21_9 = new Ratio(21, 9);
 const ASPECT_16_9 = new Ratio(16, 9);
 
 const MONITORS = {
-            DELL_4919: new Display('Dell 4919', 49, ASPECT_32_9, '5120x1440'),
-            DELL_U4320Q: new Display('Dell U4320Q', 43, ASPECT_16_9, '3840x2160'),
-            DELL_3818: new Display('Dell 3818', 38, ASPECT_21_9, '3840x1600'),
-            DELL_3418: new Display('Dell 3418', 34, ASPECT_21_9, '3440x1440'),
-            DELL_U3219Q: new Display('Dell U3219Q', 32, ASPECT_16_9, '3840x2160'),
-            DELL_U2720Q: new Display('Dell U2720Q', 27, ASPECT_16_9, '3840x2160'),
-            DELL_2713: new Display('Dell 2713', 27, ASPECT_16_9, '2560x1440'),
+            DELL_U4919DW: new Display('Dell U4919DW', 49, ASPECT_32_9, '5120x1440', 'https://www.dell.com/en-us/work/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories'),
+            DELL_U4320Q: new Display('Dell U4320Q', 43, ASPECT_16_9, '3840x2160', 'https://www.dell.com/en-us/work/shop/accessories/apd/210-AVKE'),
+            DELL_U3818DW: new Display('Dell U3818DW', 38, ASPECT_21_9, '3840x1600', 'https://www.dell.com/en-us/work/shop/dell-ultrasharp-38-curved-monitor-u3818dw/apd/210-AMRC/monitors-monitor-accessories'),
+            DELL_U3419W: new Display('Dell U3419W', 34, ASPECT_21_9, '3440x1440', 'https://www.dell.com/en-us/work/shop/dell-ultrasharp-34-curved-usb-c-monitor-u3419w/apd/210-ARCL/monitors-monitor-accessories'),
+            DELL_U3219Q: new Display('Dell U3219Q', 32, ASPECT_16_9, '3840x2160', 'https://www.dell.com/en-us/work/shop/dell-ultrasharp-32-4k-usb-c-monitor-u3219q/apd/210-aqzz/monitors-monitor-accessories'),
+            DELL_U2720Q: new Display('Dell U2720Q', 27, ASPECT_16_9, '3840x2160','https://www.dell.com/en-us/work/shop/ultrasharp-27-4k-usb-c-monitor-u2720q/apd/210-avjv/monitors-monitor-accessories' ),
+            DELL_U2713HM: new Display('Dell U2713HM', 27, ASPECT_16_9, '2560x1440', 'https://www.dell.com/hr/p/dell-u2713hm/pd'),
             LENOVO_X1: new Display('X1 Carbon', 14, ASPECT_16_9, '1920x1080'),
+            LG_34WK95U: new Display('LG 34WK95U-W', 34, ASPECT_21_9, '5120x2160', 'https://www.lg.com/us/monitors/lg-34WK95U-W-ultrawide-monitor'),
+            LG_34WN80C: new Display('LG 34WN80C-B', 34, ASPECT_21_9, '3440x1440', 'https://www.lg.com/us/monitors/lg-34wn80c-b-ultrawide-monitor'),
 }
 
 var app = new Vue({
@@ -70,13 +73,14 @@ var app = new Vue({
         displays: [
             MONITORS.DELL_U4320Q,
             MONITORS.LENOVO_X1,
-            MONITORS.DELL_2713,
+            MONITORS.DELL_U2713HM,
             MONITORS.DELL_U2720Q,
-            MONITORS.DELL_3418,
-            MONITORS.DELL_4919,
+            MONITORS.DELL_U3419W,
+            MONITORS.DELL_U4919DW,
             MONITORS.DELL_U3219Q,
-            MONITORS.DELL_3818,
-
+            MONITORS.DELL_U3818DW,
+            MONITORS.LG_34WK95U,
+            MONITORS.LG_34WN80C,
         ],
         sizes: [
             49, 38, 34, 32, 27, 15.4, 14, 13.3
