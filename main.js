@@ -25,7 +25,7 @@ class Display {
         [this.width, this.height] = Display.calcDimensions(inches, ratio);
         this.model = model;
     }
-    
+
     toString() {
         return `${this.name ? this.name + ' ' : ''}${this.inches}" ${this.pxw}x${this.pxh} ${this.ppi}ppi ${this.width}x${this.height}in`;
     }
@@ -61,8 +61,8 @@ var app = new Vue({
     data: {
         view: {
             stacked: true,
-            hcenter: true,        
-            vcenter: true         
+            hcenter: true,
+            vcenter: true
         },
         inches: null,
         ratio: null,
@@ -98,7 +98,7 @@ var app = new Vue({
         colors: [
             '#1abc9c',
             '#f1c40f',
-            '##3498db',
+            '#3498db',
             '#e74c3c',
             '#9b59b6',
             '#e67e22',
@@ -114,7 +114,7 @@ var app = new Vue({
         }
     },
     computed: {
-        displaysSorted: function() { 
+        displaysSorted: function() {
             return this.displays.sort((a, b) => b.inches - a.inches);
         }
 
