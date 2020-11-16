@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- production version, optimized for size and speed -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> -->
+    
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        html {
+            background-color: #27233A;
+            color: #EAEFD3;
+        }
+
+        #app {
+            text-align: center;
+            margin: auto;
+            width: 90%;
+        }
+
+        .monitors {
+        }
+
+        .monitors.vcenter {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .monitors.hcenter .monitor {
+            margin: auto;
+        }
+
+        .monitors.stacked {
+            position: relative;
+            height: 800px;
+        }
+
+        .monitor {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: .3;
+        }
+
+        .monitor .name {
+            opacity:0;
+        }
+
+        .monitor:hover, .monitor:hover .name {
+            opacity: 1;
+        }
+
+        .monitors.stacked .monitor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <select v-model="inches">
+            <option v-for="(s, index) in sizes" :selected="index === 0">{{s}}</option>
+        </select>
+        <select v-model="ratio">
+            <option v-for="(ratio, index) in ratios" :selected="index === 0">{{ratio}}</option>
+        </select>
+        <select v-model="res">
+            <option v-for="(res, index) in resWidths" :selected="index === 0">{{res}}</option>
+        </select>
+        <button v-on:click="addMonitor">Add</button>
+
+        <button v-on:click="view.stacked = !view.stacked">{{view.stacked ? 'Show Exploded' : 'Show Stacked'}}</button>
+        <button v-on:click="view.hcenter = !view.hcenter">{{view.hcenter ? 'Left Align' : 'H Center'}}</button>
+        <button v-on:click="view.vcenter = !view.vcenter">{{view.vcenter ? 'Bottom Align' : 'V Center'}}</button>
+
+        <div class="monitors" v-bind:class="{stacked: view.stacked, hcenter: view.hcenter, vcenter: view.vcenter}">
+            <div class="monitor" v-for="(d, index) in displaysSorted" v-if="d.visible" v-bind:style="{ border: '3px solid ' + colors[index % 6], color: colors[index % 6], 'background-color': colors[index % 6] + '30', width: d.width * 30 + 'px', height: d.height*30 + 'px'}">
+                <span class="name">{{d}}</span>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <th>Visible</th>
+                <th>Model</th>
+                <th>Size</th>
+                <th>Ratio</th>
+                <th>Resolution</th>
+                <th>PPI</th>
+            </tr>
+            <tr v-for="(d, index) in displaysSorted" v-bind:style="{color: colors[index % 6]}">
+                <td><input type="checkbox" v-model="d.visible"></td>
+                <td>{{d.model}}</td>
+                <td>{{d.inches}}</td>
+                <td>{{d.ratio}}</td>
+                <td>{{d.res}}</td>
+                <td>{{d.ppi}}</td>
+            </tr>
+        </table>
+    </div>
+      <script src="/main.js"></script>
+</body>
+</html>
